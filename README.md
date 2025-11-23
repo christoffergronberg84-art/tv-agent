@@ -1,42 +1,25 @@
-# tv-agent (TradingView Agentmode starter)
+# tv-agent MCP server (Render-ready)
 
-This bundle gives you a local MCP server + Playwright TradingView UI runner.
+Minimal MCP-compatible server for TradingView Agentmode.
 
-## What you get
-- MCP server at `/mcp` with tools:
-  - `tradingview_chart_url`
-  - `get_ohlcv`
-  - `tv_backtest_in_ui` (Playwright, local UI)
-- Playwright TradingView runner (`mcp-server/tv-runner.ts`)
-- Placeholders for execution engine and state store
+## Endpoints
+- `GET /mcp/ping`
+- `POST /mcp/tools`
+- `POST /mcp/run`
 
-## Prereqs (Windows)
-1. Install Node.js LTS (includes npm)
-2. Install Git (already done)
-3. Optional: VS Code
+## Tools
+- `get_ohlcv(symbol, interval, limit)`
+- `tradingview_chart_url(symbol, interval)`
+- `tv_backtest_in_ui()`
 
-## Setup
-```powershell
-cd tv-agent
-copy .env.example .env
+## Local run
+```bash
 npm install
-npx playwright install chromium
+npm start
+# open http://localhost:3000/mcp/ping
 ```
 
-## Run MCP server
-```powershell
-npm run dev:mcp
-```
-You should see:
-`MCP server running at http://localhost:3000/mcp`
-
-## Add to ChatGPT Agentmode
-Use URL:
-`http://localhost:3000/mcp`
-
-If you need a public https URL, use cloudflared/ngrok:
-`cloudflared tunnel --url http://localhost:3000`
-
-## Next steps
-- We will stabilize selectors in tv-runner for your TradingView layout.
-- Then build optimization loop and broker adapters.
+## Deploy on Render
+- Root Directory: repo root
+- Build Command: `npm install`
+- Start Command: `npm start`
